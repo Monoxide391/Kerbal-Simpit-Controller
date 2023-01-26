@@ -108,6 +108,7 @@ void testLEDS(int testdelay) {
 //Step though buttons and switches
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 void readswitches() {
+
   StageArmButton();
   StageButton();
   Throttle();
@@ -127,14 +128,20 @@ void readswitches() {
   Action2();
   Action3();
   Action4();
-  SetLEDs();
+  //SetLEDs();
+  MatchLEDs();
   DisplaySelect();
   AltitudeFormat();
   DisplayMillis = millis();                                  //get the current time
   if (DisplayMillis - DisplayStartMillis >= DisplayRefresh)  //test whether the DisplayRefresh has elapsed
   {
+    startTime = millis();
     UpdateDisplays();
+    endTime = millis();
+    timeItTook = endTime - startTime;
+    //*-*-*-
     DisplayStartMillis = DisplayMillis;  //IMPORTANT to update the start time
   }
+
   FuelGages();
 }

@@ -13,7 +13,7 @@
 
 #define SCREEN_WIDTH 128  // OLED display width, in pixels
 #define SCREEN_HEIGHT 64  // OLED display height, in pixels
-#define SSD1306_NO_SPLASH
+#define SSD1305_NO_SPLASH
 #define OLED_RESET -1  // Reset pin # (or -1 if sharing Arduino reset pin)
 
 // Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
@@ -166,9 +166,9 @@ int XenonGasMap;
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 int DisplayValue = 0;
 int pDisplayModeState = 0;
-const int DisplayRefresh = 100;      //refresh Display every 40 ms = 25fps
-unsigned long  DisplayMillis;
-unsigned long  DisplayStartMillis;
+const int DisplayRefresh = 100;  //refresh Display every 40 ms = 25fps
+unsigned long DisplayMillis;
+unsigned long DisplayStartMillis;
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //SAS & RCS
@@ -192,25 +192,15 @@ const unsigned long StageMillsPeriod = 1000;
 int pMapState = 0;
 int MapStatus = 0;
 int pLIGHTSState = 0;
-int LightsStatus = 0;
 int pSOLARState = 0;
-int SolorStatus = 0;
 int pLADDERState = 0;
-int LadderStatus = 0;
 int pGEARSState = 0;
-int GearsStatus = 0;
 int pBRAKESState = 0;
-int BrakesStatus = 0;
 int pCHUTESState = 0;
-int ChutesStatus = 0;
 int pACTION1State = 0;
-int Action1Status = 0;
 int pACTION2State = 0;
-int Action2Status = 0;
 int pACTION3State = 0;
-int Action3Status = 0;
 int pACTION4State = 0;
-int Action4Status = 0;
 int pMaxThrottleValue = 0;
 int pMinThrottleValue = 0;
 int StageStatus = 0;  // configure this
@@ -241,6 +231,12 @@ float Altitude = 0;
 int AltitudeCase = 0;
 String FormatedAltitude;
 String strAlt;
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//Time Test
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+unsigned long startTime;
+unsigned long endTime;
+unsigned long timeItTook;
 
 void setup() {
   Serial.begin(115200);  // Open the serial connection.
@@ -255,8 +251,9 @@ void setup() {
   }
   mySimpit.printToKSP("Connected", PRINT_TO_SCREEN);  // Display a message in KSP to indicate handshaking is complete.
   registerInputchannel();
-  StageStartMillis = millis();  //initial start time Stage
-  DisplayStartMillis = millis();//initial start time Display
+  StageStartMillis = millis();    //initial start time Stage
+  DisplayStartMillis = millis();  //initial start time Display
+
 }
 
 void loop() {

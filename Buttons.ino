@@ -78,14 +78,15 @@ void Map() {
 //===========================================================================================================
 void Lights() {
   pLIGHTSState = digitalRead(pLIGHTS);
-  if (pLIGHTSState == 0 && LightsStatus == 0) {
-    mySimpit.activateAction(LIGHT_ACTION);
-    LightsStatus = 1;
-    delay(ButtonDelay);
-  } else if (pLIGHTSState == 0 && LightsStatus == 1) {
-    mySimpit.deactivateAction(LIGHT_ACTION);
-    LightsStatus = 0;
-    delay(ButtonDelay);
+  if (pLIGHTSState == 0) {
+    switch (lights_on) {
+      case 0:
+        mySimpit.activateAction(LIGHT_ACTION);
+        break;
+      case 1:
+        mySimpit.deactivateAction(LIGHT_ACTION);
+        break;
+    }
   }
 }
 //===========================================================================================================
@@ -93,14 +94,15 @@ void Lights() {
 //===========================================================================================================
 void Solar() {
   pSOLARState = digitalRead(pSOLAR);
-  if (pSOLARState == 0 && SolorStatus == 0) {
-    mySimpit.activateCAG(9);
-    SolorStatus = 1;
-    delay(ButtonDelay);
-  } else if (pSOLARState == 0 && SolorStatus == 1) {
-    mySimpit.deactivateCAG(9);
-    SolorStatus = 0;
-    delay(ButtonDelay);
+  if (pSOLARState == 0) {
+    switch (solar_on) {
+      case 0:
+        mySimpit.activateCAG(9);
+        break;
+      case 1:
+        mySimpit.deactivateCAG(9);
+        break;
+    }
   }
 }
 //===========================================================================================================
@@ -108,14 +110,15 @@ void Solar() {
 //===========================================================================================================
 void Ladder() {
   pLADDERState = digitalRead(pLADDER);
-  if (pLADDERState == 0 && LadderStatus == 0) {
-    mySimpit.activateCAG(7);
-    LadderStatus = 1;
-    delay(ButtonDelay);
-  } else if (pLADDERState == 0 && LadderStatus == 1) {
-    mySimpit.deactivateCAG(7);
-    LadderStatus = 0;
-    delay(ButtonDelay);
+  if (pLADDERState == 0) {
+    switch (ladder_on) {
+      case 0:
+        mySimpit.activateCAG(7);
+        break;
+      case 1:
+        mySimpit.deactivateCAG(7);
+        break;
+    }
   }
 }
 //===========================================================================================================
@@ -123,14 +126,15 @@ void Ladder() {
 //===========================================================================================================
 void Gears() {
   pGEARSState = digitalRead(pGEARS);
-  if (pGEARSState == 0 && GearsStatus == 0) {
-    mySimpit.activateAction(GEAR_ACTION);
-    GearsStatus = 1;
-    delay(ButtonDelay);
-  } else if (pGEARSState == 0 && GearsStatus == 1) {
-    mySimpit.deactivateAction(GEAR_ACTION);
-    GearsStatus = 0;
-    delay(ButtonDelay);
+  if (pGEARSState == 0) {
+    switch (gears_on) {
+      case 0:
+        mySimpit.activateAction(GEAR_ACTION);
+        break;
+      case 1:
+        mySimpit.deactivateAction(GEAR_ACTION);
+        break;
+    }
   }
 }
 //===========================================================================================================
@@ -138,14 +142,15 @@ void Gears() {
 //===========================================================================================================
 void Brakes() {
   pBRAKESState = digitalRead(pBRAKES);
-  if (pBRAKESState == 0 && BrakesStatus == 0) {
-    mySimpit.activateAction(BRAKES_ACTION);
-    BrakesStatus = 1;
-    delay(ButtonDelay);
-  } else if (pBRAKESState == 0 && BrakesStatus == 1) {
-    mySimpit.deactivateAction(BRAKES_ACTION);
-    BrakesStatus = 0;
-    delay(ButtonDelay);
+  if (pBRAKESState == 0) {
+    switch (brakes_on) {
+      case 0:
+        mySimpit.activateAction(BRAKES_ACTION);
+        break;
+      case 1:
+        mySimpit.deactivateAction(BRAKES_ACTION);
+        break;
+    }
   }
 }
 //===========================================================================================================
@@ -153,14 +158,15 @@ void Brakes() {
 //===========================================================================================================
 void Chutes() {
   pCHUTESState = digitalRead(pCHUTES);
-  if (pCHUTESState == 0 && ChutesStatus == 0) {
-    mySimpit.activateCAG(8);
-    ChutesStatus = 1;
-    delay(ButtonDelay);
-  } else if (pCHUTESState == 0 && ChutesStatus == 1) {
-    mySimpit.deactivateCAG(8);
-    ChutesStatus = 0;
-    delay(ButtonDelay);
+  if (pCHUTESState == 0) {
+    switch (chutes_on) {
+      case 0:
+        mySimpit.activateCAG(8);
+        break;
+      case 1:
+        mySimpit.deactivateCAG(8);
+        break;
+    }
   }
 }
 //===========================================================================================================
@@ -168,14 +174,15 @@ void Chutes() {
 //===========================================================================================================
 void Action1() {
   pACTION1State = digitalRead(pACTION1);
-  if (pACTION1State == 0 && Action1Status == 0) {
-    mySimpit.activateCAG(1);
-    Action1Status = 1;
-    delay(ButtonDelay);
-  } else if (pACTION1State == 0 && Action1Status == 1) {
-    mySimpit.deactivateCAG(1);
-    Action1Status = 0;
-    delay(ButtonDelay);
+  if (pACTION1State == 0) {
+    switch (action1_on) {
+      case 0:
+        mySimpit.activateCAG(1);
+        break;
+      case 1:
+        mySimpit.deactivateCAG(1);
+        break;
+    }
   }
 }
 //===========================================================================================================
@@ -183,14 +190,15 @@ void Action1() {
 //===========================================================================================================
 void Action2() {
   pACTION2State = digitalRead(pACTION2);
-  if (pACTION2State == 0 && Action2Status == 0) {
-    mySimpit.activateCAG(2);
-    Action2Status = 1;
-    delay(ButtonDelay);
-  } else if (pACTION2State == 0 && Action2Status == 1) {
-    mySimpit.deactivateCAG(2);
-    Action2Status = 0;
-    delay(ButtonDelay);
+  if (pACTION2State == 0) {
+    switch (action2_on) {
+      case 0:
+        mySimpit.activateCAG(2);
+        break;
+      case 1:
+        mySimpit.deactivateCAG(2);
+        break;
+    }
   }
 }
 //===========================================================================================================
@@ -198,14 +206,15 @@ void Action2() {
 //===========================================================================================================
 void Action3() {
   pACTION3State = digitalRead(pACTION3);
-  if (pACTION3State == 0 && Action3Status == 0) {
-    mySimpit.activateCAG(3);
-    Action3Status = 1;
-    delay(ButtonDelay);
-  } else if (pACTION3State == 0 && Action3Status == 1) {
-    mySimpit.deactivateCAG(3);
-    Action3Status = 0;
-    delay(ButtonDelay);
+  if (pACTION3State == 0) {
+    switch (action3_on) {
+      case 0:
+        mySimpit.activateCAG(3);
+        break;
+      case 1:
+        mySimpit.deactivateCAG(3);
+        break;
+    }
   }
 }
 //===========================================================================================================
@@ -213,13 +222,14 @@ void Action3() {
 //===========================================================================================================
 void Action4() {
   pACTION4State = digitalRead(pACTION4);
-  if (pACTION4State == 0 && Action4Status == 0) {
-    mySimpit.activateCAG(4);
-    Action4Status = 1;
-    delay(ButtonDelay);
-  } else if (pACTION4State == 0 && Action4Status == 1) {
-    mySimpit.deactivateCAG(4);
-    Action4Status = 0;
-    delay(ButtonDelay);
+  if (pACTION4State == 0) {
+    switch (action4_on) {
+      case 0:
+        mySimpit.activateCAG(4);
+        break;
+      case 1:
+        mySimpit.deactivateCAG(4);
+        break;
+    }
   }
 }

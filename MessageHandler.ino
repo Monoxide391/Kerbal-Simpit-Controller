@@ -27,6 +27,7 @@ void registerInputchannel()  // Send a message to the plugin registering to chan
   mySimpit.registerChannel(APSIDES_MESSAGE);
 }
 void messageHandler(byte messageType, byte msg[], byte msgSize) {
+
   switch (messageType) {
     //===========================================================================================================
     case ACTIONSTATUS_MESSAGE:

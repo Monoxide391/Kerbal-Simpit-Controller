@@ -1,18 +1,9 @@
+
 //===========================================================================================================
 // Set LED according to Status Working
 //===========================================================================================================
 void SetLEDs() {
   //===========================================================================================================
-  digitalWrite(pSOLARLED, SolorStatus);
-  digitalWrite(pLIGHTSLED, LightsStatus);
-  digitalWrite(pLADDERLED, LadderStatus);
-  digitalWrite(pGEARSLED, GearsStatus);
-  digitalWrite(pBRAKESLED, BrakesStatus);
-  digitalWrite(pCHUTESLED, ChutesStatus);
-  digitalWrite(pACTION1LED, Action1Status);
-  digitalWrite(pACTION2LED, Action2Status);
-  digitalWrite(pACTION3LED, Action3Status);
-  digitalWrite(pACTION4LED, Action4Status);
   digitalWrite(pSTAGELED, StageStatus);
   digitalWrite(pMapLED, MapStatus);
   digitalWrite(pExecuteLED, AbortStatus);
@@ -39,10 +30,14 @@ void MatchLEDs() {
 }
 
 void UpdateDisplays() {
+  //===========================================================================================================
   PanelDisplay();
-  LeftDisplay();
+  //===========================================================================================================
+ // LeftDisplay();
+  //===========================================================================================================
   MiddleDisplay();
-  RightDisplay();
+  //===========================================================================================================
+ // RightDisplay();
 }
 
 //===========================================================================================================
@@ -237,9 +232,10 @@ void SetLabels() {
 void PanelDisplay() {
   switch (DisplayValue) {
     case 0:
-      TCA9548A(3);                              //Make Bus Active
-      display3.fillRect(0, 0, 128, 64, BLACK);  //Clear
-      display3.setCursor(1, 0);                 //Line 1
+      TCA9548A(3);  //Make Bus Active
+      display3.clearDisplay();
+      //display3.fillRect(0, 0, 128, 64, BLACK);  //Clear
+      display3.setCursor(1, 0);  //Line 1
       display3.println("  Kerbal Contorller  ");
       display3.setCursor(1, 10);  //Line 2
       display3.println("       Ready      ");
@@ -254,9 +250,10 @@ void PanelDisplay() {
       display3.display();
       break;
     case 1:
-      TCA9548A(3);                              //Make Bus Active
-      display3.fillRect(0, 0, 128, 64, BLACK);  //Clear
-      display3.setCursor(1, 1);                 //Line 1
+      TCA9548A(3);  //Make Bus Active
+      display3.clearDisplay();
+      //display3.fillRect(0, 0, 128, 64, BLACK);  //Clear
+      display3.setCursor(1, 1);  //Line 1
       display3.println("Solar");
       display3.setCursor(42, 1);  //Line 1 Spaced
       display3.println(solar_on);
@@ -309,8 +306,9 @@ void PanelDisplay() {
       display3.display();
       break;
     case 2:
-      TCA9548A(3);                              //Make Bus Active
-      display3.fillRect(0, 0, 128, 64, BLACK);  //Clear
+      TCA9548A(3);  //Make Bus Active
+      display3.clearDisplay();
+      //display3.fillRect(0, 0, 128, 64, BLACK);  //Clear
       // display3.display();
       display3.setCursor(0, 0);  //Line 1
       display3.println("Solar  Action Group 9");
@@ -330,19 +328,37 @@ void PanelDisplay() {
 
       display3.display();
       break;
+    case 3:
+      TCA9548A(3);  //Make Bus Active
+      display3.clearDisplay();
+      //display3.fillRect(0, 0, 128, 64, BLACK);  //Clear
+      // display3.display();
+      display3.setCursor(0, 0);  //Line 1
+      display3.println("Time it took");
+      display3.setCursor(0, 10);  //Line 1
+      display3.println(timeItTook);
+      display3.setCursor(0, 20);  //Line 1
+      display3.println("Start Mills");
+      display3.setCursor(0, 30);  //Line 1
+      display3.println(startTime);
+      display3.setCursor(0, 40);  //Line 1
+      display3.println("End Mills");
+      display3.setCursor(0, 50);  //Line 1
+      display3.println(endTime);
+      display3.display();
+      break;
   }
 }
 //===========================================================================================================
-//==Left Display============================================================================================
+//==Left Display=============================================================================================
 //===========================================================================================================
 void LeftDisplay() {
-  TCA9548A(2);                              //Make Bus Active
-                                            //display2.clearDisplay();
-                                            //display2.display();
-  display2.fillRect(0, 0, 128, 64, BLACK);  //Clear Display
-  display2.setCursor(0, 0);                 //Line 2
+  TCA9548A(2);  //Make Bus Active
+  display2.clearDisplay();
+  //display2.fillRect(0, 0, 128, 64, BLACK);  //Clear Display
+  display2.setCursor(0, 0);  //Line 1
   display2.println("SOI: ");
-  display2.setCursor(42, 0);  //Line 2 Spaced
+  display2.setCursor(42, 0);  //Line 1 Spaced
   //display2.println(strSOI);
   display2.println(SOINameSave);
   display2.setCursor(0, 10);  //Line 2
@@ -357,49 +373,27 @@ void LeftDisplay() {
   display2.println("PER: ");
   display2.setCursor(42, 30);  //Line 3 Spaced
   display2.println(StatePER);
-
-
-
-  /*
-  display2.setCursor(42, 1);  //Line 1 Spaced
-  display2.println("OFF");
-
-  display2.setCursor(42, 12);  //Line 2 Spaced
-  display2.println("OFF");
-
-  display2.setCursor(42, 24);  //Line 3 Space
-  display2.println("OFF");
-
-  display2.setCursor(110, 1);  //Line 1 Spaced
-  display2.println("OFF");
-
-  display2.setCursor(110, 12);  //Line 2 Spaced
-  display2.println("OFF");
-
-  display2.setCursor(110, 24);  //Line 3
-  display2.println("OFF");
- */
   display2.display();
 }
 //===========================================================================================================
 //==Middle Display===========================================================================================
 //===========================================================================================================
 void MiddleDisplay() {
-  ThrottleValue = analogRead(A0);
-  throttle_valueTemp = (map(ThrottleValue, 0, 1023, 0, 118));
-  delay(250);
   TCA9548A(1);  //Make Bus Active
-
-  display1.fillRect(25, 24, 20, 12, BLACK);  //Row 1
-  display1.setCursor(24, 24);                //Line 3 Spaced SAS
+  display1.clearDisplay();
+  // display1.fillRect(25, 24, 20, 12, BLACK);  //Row 1
+  display1.setCursor(0, 24);  //Line 3
+  display1.println("SAS:");
+  display1.setCursor(24, 24);  //Line 3 Spaced SAS
   if (pSASState == 0) {
     display1.println("OFF");
   } else {
     display1.println("ON ");
   }
-
-  display1.fillRect(77, 24, 20, 12, BLACK);  //Row 2
-  display1.setCursor(76, 24);                //Line 4 Spaced RCS
+  display1.setCursor(50, 24);  //Line 4
+  display1.println("RCS:");
+  //display1.fillRect(77, 24, 20, 12, BLACK);  //Row 2
+  display1.setCursor(76, 24);  //Line 4 Spaced RCS
   if (RCSStatus == 1) {
     display1.println("ON");
   } else {
@@ -407,8 +401,8 @@ void MiddleDisplay() {
   }
 
   //         fillRect(x,y,w,z)
-  display1.fillRect(0, 36, 128, 20, BLACK);  //Row 4
-  display1.setCursor(0, 36);                 //Line 4 Spaced
+  // display1.fillRect(0, 36, 128, 20, BLACK);  //Row 4
+  display1.setCursor(0, 36);  //Line 4 Spaced
   if (SasValue == 0) {
     display1.println("STABILITYASSIST");
   }
@@ -442,94 +436,132 @@ void MiddleDisplay() {
   if (SasValue == 255) {
     display1.println("");
   }
-
+  display1.setCursor(0, 1);  //Line 1
+  display1.println("Throttle:");
+  // display1.fillRect(5, 13, 116, 5, BLACK);            //Clears the bar depending on the sensor value
+  display1.drawRect(2, 12, 120, 7, 2);  //Border of the bar chart
+  throttle_valueTemp = (map(ThrottleValue, 0, 1023, 0, 118));
+  display1.fillRect(2, 13, throttle_valueTemp, 5, WHITE);  //Draws the bar depending on the sensor value
   display1.display();
-
-  if (ThrottleValueOld != throttle_valueTemp) {
-
-    display1.fillRect(5, 13, 116, 5, BLACK);                 //Clears the bar depending on the sensor value
-    display1.fillRect(2, 13, throttle_valueTemp, 5, WHITE);  //Draws the bar depending on the sensor value
-    display1.display();
-  }
 }
 //===========================================================================================================
-//==Right Display=============================================================================================
+//==Right Display============================================================================================
 //===========================================================================================================
 void RightDisplay() {
-  TCA9548A(0);                               //Make Bus Active
-  display0.fillRect(42, 0, 20, 64, BLACK);   //Row 1
-  display0.fillRect(110, 0, 20, 64, BLACK);  //Row 2
+  TCA9548A(0);  //Make Bus Active
+  display0.clearDisplay();
+  // display0.fillRect(42, 0, 20, 64, BLACK);   //Row 1
+  // display0.fillRect(110, 0, 20, 64, BLACK);  //Row 2
 
-  // display0.display();
+  display0.setCursor(0, 1);  //Line 1
+  display0.println("Lights:");
   display0.setCursor(42, 1);  //Line 1 Spaced
-  if (LightsStatus == 0) {
-    display0.println("OFF");
-  } else {
-    display0.println("ON ");
+  switch (lights_on) {
+    case 0:
+      display0.println("OFF");
+      break;
+    case 1:
+      display0.println("ON ");
+      break;
   }
+  display0.setCursor(0, 12);  //Line 2
+  display0.println("Solar:");
   display0.setCursor(42, 12);  //Line 2 Spaced
-  if (SolorStatus == 0) {
-    display0.println("OFF");
-  } else {
-    display0.println("ON ");
+  switch (solar_on) {
+    case 0:
+      display0.println("OFF");
+      break;
+    case 1:
+      display0.println("ON ");
+      break;
   }
-
+  display0.setCursor(0, 24);  //Line 3
+  display0.println("Gears:");
   display0.setCursor(42, 24);  //Line 3 Spaced
-  if (GearsStatus == 0) {
-    display0.println("OFF");
-  } else {
-    display0.println("ON ");
+  switch (gears_on) {
+    case 0:
+      display0.println("OFF");
+      break;
+    case 1:
+      display0.println("ON ");
+      break;
   }
-
+  display0.setCursor(0, 36);  //Line 4
+  display0.println("Actn 1:");
   display0.setCursor(42, 36);  //Line 4 Spaced
-  if (Action1Status == 0) {
-    display0.println("OFF");
-  } else {
-    display0.println("ON ");
+  switch (action1_on) {
+    case 0:
+      display0.println("OFF");
+      break;
+    case 1:
+      display0.println("ON ");
+      break;
   }
-
+  display0.setCursor(0, 48);  //Line 5
+  display0.println("Actn 3:");
   display0.setCursor(42, 48);  //Line 5 Spaced
-  if (Action3Status == 0) {
-    display0.println("OFF");
-  } else {
-    display0.println("ON ");
+  switch (action3_on) {
+    case 0:
+      display0.println("OFF");
+      break;
+    case 1:
+      display0.println("ON ");
+      break;
   }
-
+  display0.setCursor(66, 1);  //Line 1
+  display0.println("Ladder:");
   display0.setCursor(110, 1);  //Line 1-2 Spaced
-  if (LadderStatus == 0) {
-    display0.println("OFF");
-  } else {
-    display0.println("ON ");
+  switch (ladder_on) {
+    case 0:
+      display0.println("OFF");
+      break;
+    case 1:
+      display0.println("ON ");
+      break;
   }
-
+  display0.setCursor(66, 12);  //Line 2
+  display0.println("Chutes:");
   display0.setCursor(110, 12);  //Line 2-2 Spaced
-  if (ChutesStatus == 0) {
-    display0.println("OFF");
-  } else {
-    display0.println("ON ");
+  switch (chutes_on) {
+    case 0:
+      display0.println("OFF");
+      break;
+    case 1:
+      display0.println("ON ");
+      break;
   }
-
+  display0.setCursor(66, 24);  //Line 3
+  display0.println("Brakes:");
   display0.setCursor(110, 24);  //Line 3-2 Spaced
-  if (BrakesStatus == 0) {
-    display0.println("OFF");
-  } else {
-    display0.println("ON ");
+  switch (brakes_on) {
+    case 0:
+      display0.println("OFF");
+      break;
+    case 1:
+      display0.println("ON ");
+      break;
   }
-
+  display0.setCursor(66, 36);  //Line 4
+  display0.println("Actn 2:");
   display0.setCursor(110, 36);  //Line 4-2 Spaced
-  if (Action2Status == 0) {
-    display0.println("OFF");
-  } else {
-    display0.println("ON ");
+  switch (action2_on) {
+    case 0:
+      display0.println("OFF");
+      break;
+    case 1:
+      display0.println("ON ");
+      break;
   }
-
+  display0.setCursor(66, 48);  //Line 5
+  display0.println("Actn 4:");
   display0.setCursor(110, 48);  //Line 5-2 Spaced
-  if (Action4Status == 0) {
-    display0.setCursor(110, 48);  //Line 5-2 Spaced
-    display0.println("OFF");
-  } else {
-    display0.setCursor(110, 48);  //Line 5-2 Spaced
-    display0.println("ON ");
+  switch (action4_on) {
+    case 0:
+      display0.println("OFF");
+      break;
+    case 1:
+      display0.println("ON ");
+      break;
   }
 
   display0.display();
