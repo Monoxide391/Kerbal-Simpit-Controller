@@ -166,7 +166,8 @@ int XenonGasMap;
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 int DisplayValue = 0;
 int pDisplayModeState = 0;
-const int DisplayRefresh = 100;  //refresh Display every 40 ms = 25fps
+bool DisplayToggle = false;
+const int DisplayRefresh = 300;  //refresh Display every 40 ms = 25fps
 unsigned long DisplayMillis;
 unsigned long DisplayStartMillis;
 
